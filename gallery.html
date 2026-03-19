@@ -21,6 +21,8 @@
             --pink-neon: #ff69b4;
             --blue-neon: #3b82f6;
             --green: #10b981;
+            --purple: #a78bfa;
+            --orange: #f59e0b;
             --hover-glow: rgba(184, 149, 106, 0.15);
         }
 
@@ -41,12 +43,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
         }
 
         .header h1 {
@@ -74,78 +70,106 @@
 
         .back-link:hover { color: var(--gold-light); }
 
-        /* Filter Bar */
-        .filter-bar {
-            padding: 1rem 2rem;
+        /* Sidebar + Content Layout */
+        .layout {
             display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            border-bottom: 1px solid var(--border);
-            background: rgba(26, 29, 40, 0.5);
+            min-height: calc(100vh - 80px);
         }
 
-        .filter-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            min-width: 260px;
+            background: rgba(26, 29, 40, 0.7);
+            border-right: 1px solid var(--border);
+            padding: 1.25rem 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             color: var(--text-secondary);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s;
+            padding: 0 1.25rem;
+            margin-bottom: 0.5rem;
         }
 
-        .filter-btn:hover, .filter-btn.active {
-            border-color: var(--gold);
-            color: var(--gold);
-            background: var(--hover-glow);
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            padding: 1rem 2rem;
-            display: flex;
-            gap: 2rem;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .stat-item span { color: var(--gold); font-weight: 600; }
-
-        /* Gallery Grid */
-        .gallery-container {
-            padding: 1.5rem 2rem;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border);
+        .sidebar-item {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-        }
-
-        .section-title .badge {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+            gap: 0.6rem;
+            padding: 0.5rem 1.25rem;
+            cursor: pointer;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
-            font-weight: 500;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
         }
 
+        .sidebar-item:hover {
+            background: var(--hover-glow);
+            color: var(--text-primary);
+        }
+
+        .sidebar-item.active {
+            color: var(--gold);
+            border-left-color: var(--gold);
+            background: rgba(184, 149, 106, 0.08);
+        }
+
+        .sidebar-item .count {
+            margin-left: auto;
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 10px;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-item.active .count {
+            background: rgba(184, 149, 106, 0.2);
+            color: var(--gold);
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 1.5rem 2rem;
+            overflow-y: auto;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .content-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+        }
+
+        .content-count {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .content-count span { color: var(--gold); font-weight: 600; }
+
+        /* Gallery Grid */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.25rem;
-            margin-bottom: 2.5rem;
         }
 
         .gallery-card {
@@ -163,12 +187,21 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
 
-        .card-image {
+        .card-image-wrap {
             width: 100%;
             aspect-ratio: 16/10;
+            overflow: hidden;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-image-wrap img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
-            background: #111;
         }
 
         .card-info {
@@ -176,7 +209,7 @@
         }
 
         .card-info h3 {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
             color: var(--text-primary);
             margin-bottom: 0.3rem;
@@ -194,6 +227,7 @@
             display: flex;
             gap: 0.4rem;
             margin-top: 0.5rem;
+            flex-wrap: wrap;
         }
 
         .tag {
@@ -207,31 +241,46 @@
         .tag-neon { background: rgba(255, 105, 180, 0.15); color: #ff69b4; border: 1px solid rgba(255, 105, 180, 0.3); }
         .tag-apparel { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
         .tag-imagen { background: rgba(184, 149, 106, 0.15); color: var(--gold); border: 1px solid rgba(184, 149, 106, 0.3); }
+        .tag-ultra { background: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3); }
+        .tag-mockup { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+        /* Status dot */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-approved { background: var(--green); }
+        .dot-draft { background: var(--orange); }
+        .dot-new { background: var(--blue-neon); }
 
         /* Lightbox */
         .lightbox {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.92);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             padding: 2rem;
+            flex-direction: column;
         }
 
         .lightbox.active { display: flex; }
 
         .lightbox img {
             max-width: 90vw;
-            max-height: 85vh;
+            max-height: 80vh;
             object-fit: contain;
             border-radius: 8px;
         }
 
         .lightbox-close {
             position: absolute;
-            top: 1.5rem;
+            top: 1rem;
             right: 1.5rem;
             color: white;
             font-size: 2rem;
@@ -240,332 +289,495 @@
             border: none;
             opacity: 0.7;
             transition: opacity 0.2s;
+            z-index: 1001;
         }
 
         .lightbox-close:hover { opacity: 1; }
 
         .lightbox-info {
-            position: absolute;
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
             color: var(--text-secondary);
             font-size: 0.85rem;
             text-align: center;
-            background: rgba(15, 17, 23, 0.8);
-            padding: 0.5rem 1.5rem;
+            background: rgba(26, 29, 40, 0.9);
+            padding: 0.75rem 1.5rem;
             border-radius: 8px;
+            margin-top: 1rem;
+            max-width: 600px;
         }
+
+        .lightbox-info h4 { color: var(--text-primary); margin-bottom: 0.25rem; }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i { font-size: 3rem; margin-bottom: 1rem; color: var(--border); }
+        .empty-state h3 { color: var(--text-primary); margin-bottom: 0.5rem; }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .header { flex-direction: column; gap: 0.75rem; }
+        @media (max-width: 900px) {
+            .layout { flex-direction: column; }
+            .sidebar {
+                width: 100%;
+                min-width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 0.75rem 0;
+                display: flex;
+                overflow-x: auto;
+                gap: 0;
+            }
+            .sidebar-section { margin-bottom: 0; display: flex; gap: 0; }
+            .sidebar-section h3 { display: none; }
+            .sidebar-item {
+                white-space: nowrap;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+                padding: 0.5rem 1rem;
+            }
+            .sidebar-item.active { border-left: none; border-bottom-color: var(--gold); }
             .gallery-grid { grid-template-columns: 1fr; }
-            .filter-bar { padding: 0.75rem 1rem; }
-            .gallery-container { padding: 1rem; }
-        }
-
-        /* Timestamp */
-        .generated-at {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid var(--border);
-            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="header-left">
-            <div>
-                <h1><i class="fas fa-palette" style="margin-right: 0.5rem;"></i>Creative Gallery</h1>
-                <div class="subtitle">AI-Generated Marketing Assets — Powered by Imagen 4.0 & Gemini</div>
-            </div>
+        <div>
+            <h1><i class="fas fa-palette" style="margin-right: 0.5rem;"></i>Creative Gallery</h1>
+            <div class="subtitle">AI-Generated Marketing Assets — Powered by Sandra 🤓 &amp; Imagen 4.0</div>
         </div>
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Hub</a>
     </div>
 
-    <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterGallery('all')">All</button>
-        <button class="filter-btn" onclick="filterGallery('shirtsy')">Shirtsy</button>
-        <button class="filter-btn" onclick="filterGallery('goodneon')">GoodNeon</button>
-        <button class="filter-btn" onclick="filterGallery('lux')">Lux Neon</button>
-        <button class="filter-btn" onclick="filterGallery('ads')">Ad Creatives</button>
-        <button class="filter-btn" onclick="filterGallery('mockup')">Mockups</button>
-    </div>
+    <div class="layout">
 
-    <div class="stats-bar">
-        <div class="stat-item"><i class="fas fa-images"></i>&nbsp; Total: <span id="total-count">13</span></div>
-        <div class="stat-item"><i class="fas fa-calendar"></i>&nbsp; Generated: <span>Mar 19, 2026</span></div>
-        <div class="stat-item"><i class="fas fa-robot"></i>&nbsp; Model: <span>Imagen 4.0 / Ultra</span></div>
-        <div class="stat-item"><i class="fas fa-dollar-sign"></i>&nbsp; Sandra 🤓 <span>(Design Dept)</span></div>
-    </div>
+        <!-- Sidebar Categories -->
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3>Browse</h3>
+                <div class="sidebar-item active" onclick="filterCategory('all', this)">
+                    <i class="fas fa-th"></i> All Assets
+                    <span class="count" id="count-all">13</span>
+                </div>
+            </div>
 
-    <div class="gallery-container">
+            <div class="sidebar-section">
+                <h3>Categories</h3>
+                <div class="sidebar-item" onclick="filterCategory('ads', this)">
+                    <i class="fas fa-ad"></i> Ad Creatives
+                    <span class="count">12</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('mockup', this)">
+                    <i class="fas fa-image"></i> Product Mockups
+                    <span class="count">1</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('social', this)">
+                    <i class="fas fa-share-alt"></i> Social Media
+                    <span class="count">0</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('email', this)">
+                    <i class="fas fa-envelope"></i> Email Banners
+                    <span class="count">0</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('brand', this)">
+                    <i class="fas fa-paint-brush"></i> Brand Assets
+                    <span class="count">0</span>
+                </div>
+            </div>
 
-        <!-- Neon Mockup -->
-        <h2 class="section-title">
-            <i class="fas fa-lightbulb" style="color: #ff69b4;"></i>
-            Custom Mockups
-            <span class="badge">1 IMAGE</span>
-        </h2>
-        <div class="gallery-grid">
-            <div class="gallery-card" data-brand="lux" data-type="mockup" onclick="openLightbox(this)">
-                <img class="card-image" src="images/neon-party-sign.png" alt="Neon Party Sign Mockup">
-                <div class="card-info">
-                    <h3>"This Is Where The Party's At" — Neon Mockup</h3>
-                    <div class="card-meta">
-                        <span>1920×1080 · Imagen 4.0 Ultra</span>
-                        <span>1.3 MB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-neon">Neon</span>
-                        <span class="tag tag-imagen">Imagen Ultra</span>
-                    </div>
+            <div class="sidebar-section">
+                <h3>By Brand</h3>
+                <div class="sidebar-item" onclick="filterCategory('shirtsy', this)">
+                    <span class="status-dot dot-approved"></span> Shirtsy
+                    <span class="count">6</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('goodneon', this)">
+                    <span class="status-dot dot-approved"></span> GoodNeon
+                    <span class="count">6</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('lux', this)">
+                    <span class="status-dot dot-new"></span> Lux Neon
+                    <span class="count">1</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('crown', this)">
+                    <span class="status-dot dot-draft"></span> Crown Office
+                    <span class="count">0</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('coconut', this)">
+                    <span class="status-dot dot-draft"></span> Coconut Bikini
+                    <span class="count">0</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('reclaimed', this)">
+                    <span class="status-dot dot-draft"></span> Reclaimed Closet
+                    <span class="count">0</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('virtus', this)">
+                    <span class="status-dot dot-draft"></span> Virtus Realty
+                    <span class="count">0</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>By Model</h3>
+                <div class="sidebar-item" onclick="filterCategory('imagen-standard', this)">
+                    <i class="fas fa-robot"></i> Imagen 4.0
+                    <span class="count">12</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('imagen-ultra', this)">
+                    <i class="fas fa-star"></i> Imagen Ultra
+                    <span class="count">1</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('gemini', this)">
+                    <i class="fas fa-sparkles"></i> Gemini Flash
+                    <span class="count">0</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>By Platform</h3>
+                <div class="sidebar-item" onclick="filterCategory('adroll', this)">
+                    <i class="fas fa-bullseye"></i> AdRoll
+                    <span class="count">12</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('meta', this)">
+                    <i class="fab fa-meta"></i> Meta Ads
+                    <span class="count">0</span>
+                </div>
+                <div class="sidebar-item" onclick="filterCategory('web', this)">
+                    <i class="fas fa-globe"></i> Website
+                    <span class="count">0</span>
                 </div>
             </div>
         </div>
 
-        <!-- Shirtsy Ads -->
-        <h2 class="section-title">
-            <i class="fas fa-tshirt" style="color: #34d399;"></i>
-            Shirtsy — Spring 2026 Ad Creatives
-            <span class="badge">6 IMAGES</span>
-        </h2>
-        <div class="gallery-grid">
-            <div class="gallery-card" data-brand="shirtsy" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/shirtsy/shirtsy-spring-600x600.png" alt="Shirtsy 600x600">
-                <div class="card-info">
-                    <h3>Native Square — 600×600</h3>
-                    <div class="card-meta">
-                        <span>Native Ad · Imagen 4.0</span>
-                        <span>1.3 MB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-apparel">Apparel</span>
-                        <span class="tag tag-adroll">AdRoll</span>
-                    </div>
-                </div>
+        <!-- Content -->
+        <div class="content">
+            <div class="content-header">
+                <h2 class="content-title" id="section-title">All Assets</h2>
+                <div class="content-count">Showing <span id="visible-count">13</span> of <span>13</span></div>
             </div>
-            <div class="gallery-card" data-brand="shirtsy" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/shirtsy/shirtsy-spring-300x250.png" alt="Shirtsy 300x250">
-                <div class="card-info">
-                    <h3>Medium Rectangle — 300×250</h3>
-                    <div class="card-meta">
-                        <span>Display Ad · Imagen 4.0</span>
-                        <span>822 KB</span>
+
+            <div class="gallery-grid" id="gallery">
+
+                <!-- MOCKUPS -->
+                <div class="gallery-card" data-brand="lux" data-category="mockup" data-model="imagen-ultra" data-platform="web" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/neon-party-sign.png" alt="Neon Party Sign Mockup">
                     </div>
-                    <div class="card-tags">
-                        <span class="tag tag-apparel">Apparel</span>
-                        <span class="tag tag-adroll">AdRoll</span>
+                    <div class="card-info">
+                        <h3>"This Is Where The Party's At"</h3>
+                        <div class="card-meta">
+                            <span>Neon Mockup · Imagen 4.0 Ultra</span>
+                            <span>1.3 MB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-neon">Neon</span>
+                            <span class="tag tag-ultra">Ultra Quality</span>
+                            <span class="tag tag-mockup">Mockup</span>
+                        </div>
                     </div>
                 </div>
+
+                <!-- SHIRTSY ADS -->
+                <div class="gallery-card" data-brand="shirtsy" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/shirtsy/shirtsy-spring-600x600.png" alt="Shirtsy Native Square">
+                    </div>
+                    <div class="card-info">
+                        <h3>Spring 2026 — Native Square</h3>
+                        <div class="card-meta">
+                            <span>600×600 · Imagen 4.0</span>
+                            <span>1.3 MB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-apparel">Apparel</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                            <span class="tag tag-imagen">Imagen</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-brand="shirtsy" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/shirtsy/shirtsy-spring-300x250.png" alt="Shirtsy Medium Rectangle">
+                    </div>
+                    <div class="card-info">
+                        <h3>Spring 2026 — Medium Rectangle</h3>
+                        <div class="card-meta">
+                            <span>300×250 · Imagen 4.0</span>
+                            <span>822 KB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-apparel">Apparel</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-brand="shirtsy" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/shirtsy/shirtsy-spring-728x90.png" alt="Shirtsy Leaderboard">
+                    </div>
+                    <div class="card-info">
+                        <h3>Spring 2026 — Leaderboard</h3>
+                        <div class="card-meta">
+                            <span>728×90 · Imagen 4.0</span>
+                            <span>1.1 MB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-apparel">Apparel</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-brand="shirtsy" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/shirtsy/shirtsy-spring-970x250.png" alt="Shirtsy Billboard">
+                    </div>
+                    <div class="card-info">
+                        <h3>Spring 2026 — Billboard</h3>
+                        <div class="card-meta">
+                            <span>970×250 · Imagen 4.0</span>
+                            <span>765 KB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-apparel">Apparel</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-brand="shirtsy" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/shirtsy/shirtsy-spring-160x600.png" alt="Shirtsy Wide Skyscraper">
+                    </div>
+                    <div class="card-info">
+                        <h3>Spring 2026 — Wide Skyscraper</h3>
+                        <div class="card-meta">
+                            <span>160×600 · Imagen 4.0</span>
+                            <span>1.0 MB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-apparel">Apparel</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-brand="shirtsy" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/shirtsy/shirtsy-spring-300x600.png" alt="Shirtsy Half Page">
+                    </div>
+                    <div class="card-info">
+                        <h3>Spring 2026 — Half Page</h3>
+                        <div class="card-meta">
+                            <span>300×600 · Imagen 4.0</span>
+                            <span>991 KB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-apparel">Apparel</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GOODNEON ADS -->
+                <div class="gallery-card" data-brand="goodneon" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/goodneon/goodneon-brand-600x600.png" alt="GoodNeon Native Square">
+                    </div>
+                    <div class="card-info">
+                        <h3>Light Up Your Brand — Native Square</h3>
+                        <div class="card-meta">
+                            <span>600×600 · Imagen 4.0</span>
+                            <span>1.2 MB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-neon">Neon</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                            <span class="tag tag-imagen">Imagen</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-brand="goodneon" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/goodneon/goodneon-brand-300x250.png" alt="GoodNeon Medium Rectangle">
+                    </div>
+                    <div class="card-info">
+                        <h3>Light Up Your Brand — Medium Rectangle</h3>
+                        <div class="card-meta">
+                            <span>300×250 · Imagen 4.0</span>
+                            <span>1.1 MB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-neon">Neon</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-brand="goodneon" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/goodneon/goodneon-brand-728x90.png" alt="GoodNeon Leaderboard">
+                    </div>
+                    <div class="card-info">
+                        <h3>Light Up Your Brand — Leaderboard</h3>
+                        <div class="card-meta">
+                            <span>728×90 · Imagen 4.0</span>
+                            <span>1.3 MB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-neon">Neon</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-brand="goodneon" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/goodneon/goodneon-brand-970x250.png" alt="GoodNeon Billboard">
+                    </div>
+                    <div class="card-info">
+                        <h3>Light Up Your Brand — Billboard</h3>
+                        <div class="card-meta">
+                            <span>970×250 · Imagen 4.0</span>
+                            <span>1.3 MB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-neon">Neon</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-brand="goodneon" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/goodneon/goodneon-brand-160x600.png" alt="GoodNeon Wide Skyscraper">
+                    </div>
+                    <div class="card-info">
+                        <h3>Light Up Your Brand — Wide Skyscraper</h3>
+                        <div class="card-meta">
+                            <span>160×600 · Imagen 4.0</span>
+                            <span>1.2 MB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-neon">Neon</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-brand="goodneon" data-category="ads" data-model="imagen-standard" data-platform="adroll" onclick="openLightbox(this)">
+                    <div class="card-image-wrap">
+                        <img src="images/goodneon/goodneon-brand-300x600.png" alt="GoodNeon Half Page">
+                    </div>
+                    <div class="card-info">
+                        <h3>Light Up Your Brand — Half Page</h3>
+                        <div class="card-meta">
+                            <span>300×600 · Imagen 4.0</span>
+                            <span>1.3 MB</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag tag-neon">Neon</span>
+                            <span class="tag tag-adroll">AdRoll</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="gallery-card" data-brand="shirtsy" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/shirtsy/shirtsy-spring-728x90.png" alt="Shirtsy 728x90">
-                <div class="card-info">
-                    <h3>Leaderboard — 728×90</h3>
-                    <div class="card-meta">
-                        <span>Display Ad · Imagen 4.0</span>
-                        <span>1.1 MB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-apparel">Apparel</span>
-                        <span class="tag tag-adroll">AdRoll</span>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-card" data-brand="shirtsy" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/shirtsy/shirtsy-spring-970x250.png" alt="Shirtsy 970x250">
-                <div class="card-info">
-                    <h3>Billboard — 970×250</h3>
-                    <div class="card-meta">
-                        <span>Display Ad · Imagen 4.0</span>
-                        <span>765 KB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-apparel">Apparel</span>
-                        <span class="tag tag-adroll">AdRoll</span>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-card" data-brand="shirtsy" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/shirtsy/shirtsy-spring-160x600.png" alt="Shirtsy 160x600">
-                <div class="card-info">
-                    <h3>Wide Skyscraper — 160×600</h3>
-                    <div class="card-meta">
-                        <span>Display Ad · Imagen 4.0</span>
-                        <span>1.0 MB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-apparel">Apparel</span>
-                        <span class="tag tag-adroll">AdRoll</span>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-card" data-brand="shirtsy" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/shirtsy/shirtsy-spring-300x600.png" alt="Shirtsy 300x600">
-                <div class="card-info">
-                    <h3>Half Page — 300×600</h3>
-                    <div class="card-meta">
-                        <span>Display Ad · Imagen 4.0</span>
-                        <span>991 KB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-apparel">Apparel</span>
-                        <span class="tag tag-adroll">AdRoll</span>
-                    </div>
-                </div>
+
+            <!-- Empty state for filtered views -->
+            <div class="empty-state" id="empty-state" style="display:none;">
+                <i class="fas fa-folder-open"></i>
+                <h3>No assets yet</h3>
+                <p>Generate assets for this category using Sandra's design tools</p>
             </div>
         </div>
-
-        <!-- GoodNeon Ads -->
-        <h2 class="section-title">
-            <i class="fas fa-bolt" style="color: #ff69b4;"></i>
-            GoodNeon — "Light Up Your Brand" Ad Creatives
-            <span class="badge">6 IMAGES</span>
-        </h2>
-        <div class="gallery-grid">
-            <div class="gallery-card" data-brand="goodneon" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/goodneon/goodneon-brand-600x600.png" alt="GoodNeon 600x600">
-                <div class="card-info">
-                    <h3>Native Square — 600×600</h3>
-                    <div class="card-meta">
-                        <span>Native Ad · Imagen 4.0</span>
-                        <span>1.2 MB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-neon">Neon</span>
-                        <span class="tag tag-adroll">AdRoll</span>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-card" data-brand="goodneon" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/goodneon/goodneon-brand-300x250.png" alt="GoodNeon 300x250">
-                <div class="card-info">
-                    <h3>Medium Rectangle — 300×250</h3>
-                    <div class="card-meta">
-                        <span>Display Ad · Imagen 4.0</span>
-                        <span>1.1 MB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-neon">Neon</span>
-                        <span class="tag tag-adroll">AdRoll</span>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-card" data-brand="goodneon" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/goodneon/goodneon-brand-728x90.png" alt="GoodNeon 728x90">
-                <div class="card-info">
-                    <h3>Leaderboard — 728×90</h3>
-                    <div class="card-meta">
-                        <span>Display Ad · Imagen 4.0</span>
-                        <span>1.3 MB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-neon">Neon</span>
-                        <span class="tag tag-adroll">AdRoll</span>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-card" data-brand="goodneon" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/goodneon/goodneon-brand-970x250.png" alt="GoodNeon 970x250">
-                <div class="card-info">
-                    <h3>Billboard — 970×250</h3>
-                    <div class="card-meta">
-                        <span>Display Ad · Imagen 4.0</span>
-                        <span>1.3 MB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-neon">Neon</span>
-                        <span class="tag tag-adroll">AdRoll</span>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-card" data-brand="goodneon" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/goodneon/goodneon-brand-160x600.png" alt="GoodNeon 160x600">
-                <div class="card-info">
-                    <h3>Wide Skyscraper — 160×600</h3>
-                    <div class="card-meta">
-                        <span>Display Ad · Imagen 4.0</span>
-                        <span>1.2 MB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-neon">Neon</span>
-                        <span class="tag tag-adroll">AdRoll</span>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-card" data-brand="goodneon" data-type="ads" onclick="openLightbox(this)">
-                <img class="card-image" src="images/goodneon/goodneon-brand-300x600.png" alt="GoodNeon 300x600">
-                <div class="card-info">
-                    <h3>Half Page — 300×600</h3>
-                    <div class="card-meta">
-                        <span>Display Ad · Imagen 4.0</span>
-                        <span>1.3 MB</span>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag tag-neon">Neon</span>
-                        <span class="tag tag-adroll">AdRoll</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="generated-at">
-        Generated by Sandra 🤓 (Design Department) · March 19, 2026 · Imagen 4.0 via Gemini API
     </div>
 
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
         <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
         <img id="lightbox-img" src="" alt="">
-        <div class="lightbox-info" id="lightbox-info"></div>
+        <div class="lightbox-info" id="lightbox-info">
+            <h4 id="lightbox-title"></h4>
+            <div id="lightbox-meta"></div>
+        </div>
     </div>
 
     <script>
-        function filterGallery(filter) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
+        function filterCategory(filter, el) {
+            // Update sidebar
+            document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+            if (el) el.classList.add('active');
 
             const cards = document.querySelectorAll('.gallery-card');
             let visible = 0;
+            const titleMap = {
+                'all': 'All Assets',
+                'ads': 'Ad Creatives',
+                'mockup': 'Product Mockups',
+                'social': 'Social Media',
+                'email': 'Email Banners',
+                'brand': 'Brand Assets',
+                'shirtsy': 'Shirtsy',
+                'goodneon': 'GoodNeon',
+                'lux': 'Lux Neon Art Gallery',
+                'crown': 'Crown Office Supplies',
+                'coconut': 'Coconut Bikini',
+                'reclaimed': 'Reclaimed Closet',
+                'virtus': 'Virtus Realty',
+                'imagen-standard': 'Imagen 4.0 Standard',
+                'imagen-ultra': 'Imagen 4.0 Ultra',
+                'gemini': 'Gemini Flash Image',
+                'adroll': 'AdRoll Campaigns',
+                'meta': 'Meta Ads',
+                'web': 'Website Assets'
+            };
 
             cards.forEach(card => {
                 const brand = card.dataset.brand;
-                const type = card.dataset.type;
+                const category = card.dataset.category;
+                const model = card.dataset.model;
+                const platform = card.dataset.platform;
                 let show = false;
 
                 if (filter === 'all') show = true;
-                else if (filter === 'ads' && type === 'ads') show = true;
-                else if (filter === 'mockup' && type === 'mockup') show = true;
                 else if (brand === filter) show = true;
+                else if (category === filter) show = true;
+                else if (model === filter) show = true;
+                else if (platform === filter) show = true;
 
                 card.style.display = show ? '' : 'none';
                 if (show) visible++;
             });
 
-            document.getElementById('total-count').textContent = visible;
+            document.getElementById('section-title').textContent = titleMap[filter] || filter;
+            document.getElementById('visible-count').textContent = visible;
+            document.getElementById('empty-state').style.display = visible === 0 ? '' : 'none';
+            document.getElementById('gallery').style.display = visible === 0 ? 'none' : '';
         }
 
         function openLightbox(card) {
-            const img = card.querySelector('.card-image');
+            const img = card.querySelector('img');
             const title = card.querySelector('h3').textContent;
             const meta = card.querySelector('.card-meta').textContent.trim();
 
             document.getElementById('lightbox-img').src = img.src;
-            document.getElementById('lightbox-info').textContent = title + ' — ' + meta;
+            document.getElementById('lightbox-title').textContent = title;
+            document.getElementById('lightbox-meta').textContent = meta;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox(e) {
-            if (e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+            if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
                 document.getElementById('lightbox').classList.remove('active');
                 document.body.style.overflow = '';
             }
