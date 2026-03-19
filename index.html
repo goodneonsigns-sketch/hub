@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Center | Nicolas Gonzalez — Business Operations Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0f1117;
+            --card-bg: #1a1d28;
+            --gold: #b8956a;
+            --gold-light: #d4b48c;
+            --text-primary: #e4e4e7;
+            --text-secondary: #a1a1aa;
+            --live: #b8956a;
+            --coming-soon: #3b82f6;
+            --planned: #6b7280;
+            --success: #10b981;
+            --border: #2d3748;
+            --hover-glow: rgba(184, 149, 106, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(184, 149, 106, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.03) 0%, transparent 20%),
+                linear-gradient(to bottom right, #0f1117, #131722);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(26, 29, 40, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26, 29, 40, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 4rem 0 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .branding {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .lightning {
+            color: var(--gold);
+            animation: pulse 2s infinite;
+            filter: drop-shadow(0 0 5px rgba(184, 149, 106, 0.5));
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Dashboard Grid */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(184, 149, 106, 0.1),
+                0 0 30px rgba(184, 149, 106, 0.1);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .status-live {
+            background-color: rgba(184, 149, 106, 0.15);
+            color: var(--live);
+            border: 1px solid rgba(184, 149, 106, 0.3);
+        }
+
+        .status-coming-soon {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: var(--coming-soon);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .status-planned {
+            background-color: rgba(107, 114, 128, 0.15);
+            color: var(--planned);
+            border: 1px solid rgba(107, 114, 128, 0.3);
+        }
+
+        .card-domain {
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-domain i {
+            font-size: 0.9rem;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* Business Portfolio */
+        .portfolio-section {
+            margin-bottom: 5rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .business-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .business-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .business-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .business-url {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            transition: color 0.2s;
+        }
+
+        .business-url:hover {
+            color: var(--gold-light);
+        }
+
+        .business-type {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(184, 149, 106, 0.1);
+            color: var(--gold);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+            background: rgba(26, 29, 40, 0.5);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .powered-by {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .powered-by span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .built-for {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 2rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .card-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Header -->
+        <header>
+            <div class="branding">
+                <span>Jackie</span>
+                <span class="lightning">⚡</span>
+            </div>
+            <h1>Command Center</h1>
+            <p class="subtitle">Nicolas Gonzalez — Business Operations Hub</p>
+        </header>
+
+        <!-- Dashboard Grid -->
+        <h2 class="section-title">Operational Dashboards</h2>
+        <div class="dashboard-grid">
+            <!-- Card 1: Operations Dashboard -->
+            <a href="https://ops.jackiespanties.com" target="_blank" class="card">
+                <div class="card-icon">📊</div>
+                <div class="card-header">
+                    <h3 class="card-title">Operations Dashboard</h3>
+                    <span class="status-badge status-live">LIVE</span>
+                </div>
+                <div class="card-domain">
+                    <i class="fas fa-external-link-alt"></i>
+                    ops.jackiespanties.com
+                </div>
+                <p class="card-description">
+                    Site performance, speed metrics, and task tracking across all properties
+                </p>
+            </a>
+
+            <!-- Card 2: Agent Stack -->
+            <a href="https://team.jackiespanties.com" target="_blank" class="card">
+                <div class="card-icon">⚡</div>
+                <div class="card-header">
+                    <h3 class="card-title">Agent Stack</h3>
+                    <span class="status-badge status-live">LIVE</span>
+                </div>
+                <div class="card-domain">
+                    <i class="fas fa-external-link-alt"></i>
+                    team.jackiespanties.com
+                </div>
+                <p class="card-description">
+                    AI team org chart — departments, agents, models, and skills
+                </p>
+            </a>
+
+            <!-- Card 3: Customer Department -->
+            <a href="https://customer.jackiespanties.com" target="_blank" class="card">
+                <div class="card-icon">💎</div>
+                <div class="card-header">
+                    <h3 class="card-title">Customer Department</h3>
+                    <span class="status-badge status-live">LIVE</span>
+                </div>
+                <div class="card-domain">
+                    <i class="fas fa-external-link-alt"></i>
+                    customer.jackiespanties.com
+                </div>
+                <p class="card-description">
+                    Sales, retention, reputation, service & resolution — strategic build plan
+                </p>
+            </a>
+
+            <!-- Card 4: Design Department -->
+            <a href="https://design.jackiespanties.com" target="_blank" class="card">
+                <div class="card-icon">🎨</div>
+                <div class="card-header">
+                    <h3 class="card-title">Design Department</h3>
+                    <span class="status-badge status-coming-soon">COMING SOON</span>
+                </div>
+                <div class="card-domain">
+                    <i class="fas fa-external-link-alt"></i>
+                    design.jackiespanties.com
+                </div>
+                <p class="card-description">
+                    Brand vault, image generation, UI/UX, document design — creative engine
+                </p>
+            </a>
+
+            <!-- Card 5: Virtus Realty -->
+            <a href="https://virtus.jackiespanties.com" target="_blank" class="card">
+                <div class="card-icon">🏠</div>
+                <div class="card-header">
+                    <h3 class="card-title">Virtus Realty</h3>
+                    <span class="status-badge status-coming-soon">COMING SOON</span>
+                </div>
+                <div class="card-domain">
+                    <i class="fas fa-external-link-alt"></i>
+                    virtus.jackiespanties.com
+                </div>
+                <p class="card-description">
+                    Real estate platform — property search, CRM, lead management
+                </p>
+            </a>
+
+            <!-- Card 6: Marketing Hub -->
+            <a href="https://marketing.jackiespanties.com" target="_blank" class="card">
+                <div class="card-icon">🎯</div>
+                <div class="card-header">
+                    <h3 class="card-title">Marketing Hub</h3>
+                    <span class="status-badge status-planned">PLANNED</span>
+                </div>
+                <div class="card-domain">
+                    <i class="fas fa-external-link-alt"></i>
+                    marketing.jackiespanties.com
+                </div>
+                <p class="card-description">
+                    Campaign tracking, SEO, content calendar, analytics
+                </p>
+            </a>
+        </div>
+
+        <!-- Business Portfolio -->
+        <div class="portfolio-section">
+            <h2 class="section-title">Business Portfolio</h2>
+            <div class="portfolio-grid">
+                <!-- Business 1 -->
+                <div class="business-card">
+                    <h4 class="business-name">Crown Office Supplies</h4>
+                    <a href="https://crownofficesupplies.com" target="_blank" class="business-url">
+                        <i class="fas fa-external-link-alt"></i>
+                        crownofficesupplies.com
+                    </a>
+                    <span class="business-type">B2B</span>
+                </div>
+
+                <!-- Business 2 -->
+                <div class="business-card">
+                    <h4 class="business-name">Shirtsy</h4>
+                    <a href="https://shirtsy.com" target="_blank" class="business-url">
+                        <i class="fas fa-external-link-alt"></i>
+                        shirtsy.com
+                    </a>
+                    <span class="business-type">B2C</span>
+                </div>
+
+                <!-- Business 3 -->
+                <div class="business-card">
+                    <h4 class="business-name">GoodNeon</h4>
+                    <a href="https://goodneon.com" target="_blank" class="business-url">
+                        <i class="fas fa-external-link-alt"></i>
+                        goodneon.com
+                    </a>
+                    <span class="business-type">B2C</span>
+                </div>
+
+                <!-- Business 4 -->
+                <div class="business-card">
+                    <h4 class="business-name">Lux Neon Art Gallery</h4>
+                    <a href="https://luxneonartgallery.com" target="_blank" class="business-url">
+                        <i class="fas fa-external-link-alt"></i>
+                        luxneonartgallery.com
+                    </a>
+                    <span class="business-type">B2C</span>
+                </div>
+
+                <!-- Business 5 -->
+                <div class="business-card">
+                    <h4 class="business-name">Coconut Bikini</h4>
+                    <a href="https://coconutbikini.com" target="_blank" class="business-url">
+                        <i class="fas fa-external-link-alt"></i>
+                        coconutbikini.com
+                    </a>
+                    <span class="business-type">B2C</span>
+                </div>
+
+                <!-- Business 6 -->
+                <div class="business-card">
+                    <h4 class="business-name">Reclaimed Closet</h4>
+                    <a href="https://reclaimedcloset.com" target="_blank" class="business-url">
+                        <i class="fas fa-external-link-alt"></i>
+                        reclaimedcloset.com
+                    </a>
+                    <span class="business-type">B2C</span>
+                </div>
+
+                <!-- Business 7 -->
+                <div class="business-card">
+                    <h4 class="business-name">Virtus Realty Group</h4>
+                    <a href="https://virtusrealtygroup.com" target="_blank" class="business-url">
+                        <i class="fas fa-external-link-alt"></i>
+                        virtusrealtygroup.com
+                    </a>
+                    <span class="business-type">Hybrid</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <p class="powered-by">Powered by <span>Jackie ⚡ & OpenClaw</span></p>
+                <p class="built-for">Built for Nicolas Gonzalez</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Add subtle interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add ripple effect to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(184, 149, 106, 0.3);
+                        transform: scale(0);
+                        animation: ripple-animation 0.6s linear;
+                        width: ${size}px;
+                        height: ${size}px;
+                        top: ${y}px;
+                        left: ${x}px;
+                        pointer-events: none;
+                    `;
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Add CSS for ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple-animation {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Add parallax effect to background grid
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const grid = document.querySelector('body::before');
+                if (grid) {
+                    grid.style.transform = `translateY(${scrolled * 0.05}px)`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
