@@ -1,0 +1,74 @@
+Google Ads API Tool Design Document
+Lux Neon Art Gallery / Good Neon
+March 2026
+
+1. OVERVIEW
+-----------
+We are building an internal API integration to manage Google Ads campaigns for our own e-commerce businesses:
+- Lux Neon Art Gallery (luxneonartgallery.com) — Shopify store
+- Good Neon (goodneon.com) — WooCommerce store
+
+The tool is used exclusively by our internal team (no external users or clients).
+
+2. ARCHITECTURE
+---------------
+- Platform: Python-based automation scripts running on a secured internal server
+- Authentication: OAuth 2.0 with offline refresh tokens
+- API Version: Google Ads API v18/v19 (REST)
+- Manager Account: 543-649-2290 (lux neon)
+- Client Account: 933-885-5200 (Good Neon)
+
+3. USE CASES
+------------
+3.1 Campaign Management
+    - Create and modify Search campaigns targeting neon sign keywords
+    - Create and modify Performance Max campaigns for Shopping
+    - Adjust budgets and bidding strategies based on ROAS targets
+    - Pause/enable campaigns and ad groups
+
+3.2 Reporting & Analytics
+    - Pull daily/weekly campaign performance metrics (impressions, clicks, conversions, spend, ROAS)
+    - Generate keyword performance reports
+    - Monitor search term reports for negative keyword optimization
+    - Cross-reference Google Ads data with Google Analytics 4 (GA4) data
+
+3.3 Product Feed Sync
+    - Coordinate product catalog between Shopify/WooCommerce and Google Merchant Center
+    - Ensure product data consistency across advertising channels
+    - Monitor product disapprovals and feed health
+
+3.4 Bid Optimization
+    - Automated bid adjustments based on conversion data
+    - Geographic bid modifiers for South Florida market focus
+    - Device and time-of-day bid adjustments
+
+4. DATA FLOW
+------------
+[Internal Server] → Google Ads API (REST/v18)
+                  → Campaign CRUD operations
+                  → Performance data retrieval
+                  → Budget management
+                  
+[Google Merchant Center] ← Product feed (automated via WooCommerce/Shopify plugins)
+                        → Shopping campaigns in Google Ads
+
+5. RATE LIMITING & COMPLIANCE
+-----------------------------
+- All API calls respect Google Ads API rate limits
+- No automated account creation
+- No bulk account management (own accounts only)
+- Developer token used solely for our own advertising accounts
+- All API usage complies with Google Ads API Terms & Conditions
+
+6. SECURITY
+-----------
+- OAuth credentials stored in encrypted environment files
+- Refresh tokens never exposed in logs or UI
+- API access limited to authorized internal team members
+- No customer PII is transmitted through the API
+
+7. TEAM
+-------
+- Tool Developer: Internal team (Jackie AI Assistant)
+- Account Owner: Nicolas Gonzalez (Lux Neon Art Gallery LLC)
+- Contact: goodneonsigns@gmail.com
